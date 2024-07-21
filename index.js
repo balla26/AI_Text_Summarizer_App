@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT ||3000;
 const summarizeText = require('./summarize.js');
 
 // Parses JSON bodies (as sent by API clients)
@@ -20,7 +20,7 @@ app.post('/summarize', (req, res) => {
        res.send(response); // Send the summary text as a response to the client
     })
     .catch(error => {
-      console.log(error.message);
+      res.status(500).send('Error summarizing text');
     });
 });
 
